@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 public enum OrderStatusEnum {
     NEW(0, "新订单"),
     FINISHED(1, "已完成"),
-    CANCEL(2, "已取消")
+    CANCEL(2, "已取消"),
     ;
 
     private Integer code;

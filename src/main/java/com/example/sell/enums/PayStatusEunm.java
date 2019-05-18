@@ -7,7 +7,7 @@ public enum PayStatusEunm {
 
     WAIT(0, "等待支付"),
     SUCCESS(1, "支付成功"),
-
+    PAID(3, "已退款"),
     ;
 
     private Integer code;
