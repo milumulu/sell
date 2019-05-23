@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Getter
-public enum OrderStatusEnum {
+public enum OrderStatusEnum implements CodeEnum<Integer> {
     NEW(0, "新订单"),
     FINISHED(1, "已完成"),
     CANCEL(2, "已取消"),

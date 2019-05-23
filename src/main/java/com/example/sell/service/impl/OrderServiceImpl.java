@@ -13,6 +13,7 @@ import com.example.sell.exception.SellException;
 import com.example.sell.repository.OrderDetailRepository;
 import com.example.sell.repository.OrderMasterRepository;
 import com.example.sell.service.OrderService;
+import com.example.sell.service.PayService;
 import com.example.sell.service.ProductService;
 import com.example.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     @Transactional
@@ -138,9 +142,7 @@ public class OrderServiceImpl implements OrderService {
         productService.increaseStock(cartDTOList);
         //如果已经支付，退款
         if(orderDTO.getOrderStatus().equals(PayStatusEunm.SUCCESS.getCode())){
-            //TODO
-//            orderMaster.setOrderStatus(PayStatusEunm.PAID.getCode());
-//            orderMaster.setOrderAmount(new BigDecimal(0)-orderMaster.getOrderAmount());
+            payService.refund(orderDTO);
         }
        return orderDTO;
     }
@@ -188,5 +190,13 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIT);
         }
         return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConvert.convert(orderMasterPage.getContent());
+
+        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 }

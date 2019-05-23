@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -92,5 +93,12 @@ public class OrderServiceImplTest {
         OrderDTO orderDTO = orderService.findOne(ORDER_ID);
         OrderDTO result = orderService.paid(orderDTO);
         Assert.assertEquals(PayStatusEunm.SUCCESS.getCode(), result.getPayStatus());
+    }
+
+    @Test
+    public void findAll() {
+        PageRequest request = PageRequest.of(0,10);
+        Page<OrderDTO> page = orderService.findList(request);
+        Assert.assertTrue("查询所有订单", page.getTotalElements() > 0);
     }
 }
