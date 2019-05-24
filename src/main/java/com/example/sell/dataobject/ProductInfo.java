@@ -1,13 +1,20 @@
 package com.example.sell.dataobject;
 
+import com.example.sell.enums.CodeEnum;
+import com.example.sell.enums.ProductStatusEnum;
+import com.example.sell.utils.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Data
+@DynamicUpdate
 public class ProductInfo {
 
     @Id
@@ -32,5 +39,14 @@ public class ProductInfo {
     private  Integer categoryType;
 
     /** 商品状态 */
-    private  Integer productStatus;
+    private  Integer productStatus = ProductStatusEnum.UP.getCode();
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 }

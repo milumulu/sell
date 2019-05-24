@@ -22,6 +22,8 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class ProductServiceImplTest {
 
+    private final String PRODUCT_ID = "123456";
+
     @Autowired
     private ProductServiceImpl productService;
 
@@ -57,5 +59,17 @@ public class ProductServiceImplTest {
         productInfo.setCategoryType(103);
         ProductInfo result = productService.save(productInfo);
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void onSale() {
+        ProductInfo result = productService.onSale(PRODUCT_ID);
+        Assert.assertEquals(ProductStatusEnum.UP, result.getProductStatusEnum());
+    }
+
+    @Test
+    public void offSale() {
+        ProductInfo result = productService.offSale(PRODUCT_ID);
+        Assert.assertEquals(ProductStatusEnum.DOWN, result.getProductStatusEnum());
     }
 }
