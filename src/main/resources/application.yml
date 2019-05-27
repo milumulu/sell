@@ -8,12 +8,22 @@ spring:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+    port: 6379
 server:
   servlet:
     context-path: /sell
 wechat:
   mpAppId: wxa7f17d4eba85680c
   mpAppSecret: 96bf9752433c265be00649b3e10ceb7d
+  openAppId:
+  openAppSecret:
   mchId:
   mchKey:
   keyPath:
+  notifyUrl:
+project-url:
+  wechatMpAuthorize: http://xxm3b5.natappfree.cc/sell/
+  wecharOpenAuthorize: http://xxm3b5.natappfree.cc/sell/
+  sell:
