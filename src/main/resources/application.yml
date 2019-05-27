@@ -23,6 +23,8 @@ wechat:
   mchKey:
   keyPath:
   notifyUrl:
+  templateId:
+    orderStatus:
 project-url:
   wechatMpAuthorize: http://xxm3b5.natappfree.cc/sell/
   wecharOpenAuthorize: http://xxm3b5.natappfree.cc/sell/

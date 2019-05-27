@@ -47,6 +47,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private PayService payService;
 
+    @Autowired
+    private PushMessageServiceImpl pushMessageService;
+
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -164,6 +167,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("【取消订单】 更新失败 orderDTO={}", orderDTO);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIT);
         }
+
+        //推送模板消息
+        pushMessageService.orderStatus(orderDTO);
         return orderDTO;
     }
 
