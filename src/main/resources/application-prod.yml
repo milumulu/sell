@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/sell?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+  jackson:
+    default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+    port: 6379
+server:
+  servlet:
+    context-path: /sell
+wechat:
+  mpAppId: wxa7f17d4eba85680c
+  mpAppSecret: 96bf9752433c265be00649b3e10ceb7d
+  openAppId:
+  openAppSecret:
+  mchId:
+  mchKey:
+  keyPath:
+  notifyUrl:
+  templateId:
+    orderStatus: XaKBhXmVvYi2W0Yi2G0QQnWiZor2QVkRsBD6FxxybGQ
+    wifeLoveLetter: w_EvSSPi6sbfx3v8one3dacuKH8DPuANR18tAGwpwog
+project-url:
+  wechatMpAuthorize: http://xxm3b5.natappfree.cc/sell/
+  wecharOpenAuthorize: http://xxm3b5.natappfree.cc/sell/
+  sell:
+logging:
+  level:
+    com.example.sell.dataobject.mapper: trace
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

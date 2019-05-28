@@ -1,6 +1,7 @@
 package com.example.sell.service.impl;
 
 import com.example.sell.dataobject.ProductCategory;
+import com.example.sell.dataobject.dao.ProductCategoryDao;
 import com.example.sell.repository.ProductCategoryRepository;
 import com.example.sell.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private ProductCategoryRepository repository;
+
+//    @Autowired
+//    private ProductCategoryDao productCategoryDao;
 
     @Override
     public ProductCategory findOne(Integer categoryId) {
