@@ -21,6 +21,8 @@ import java.util.Map;
 @Service
 public class SeckillServiceImpl implements SeckillService {
 
+    private static final int  TIMEOUT = 10 * 1000; //超时时间 10S
+
     @Autowired
     RedisLock redisLock;
 
@@ -52,7 +54,12 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public synchronized void orderProductMockDiffUser(String productId) {
+    public void orderProductMockDiffUser(String productId) {
+        //加锁
+        long time = System.currentTimeMillis() + TIMEOUT;
+        if (!redisLock.lock(productId, String.valueOf(time))) {
+            throw new SellException(101, "哎呦喂，人也太多了，换个姿势再试试~~");
+        }
         //1.查询改商品库存，为0则活动结束。
         int stockNum = stock.get(productId);
         if (stockNum == 0) {
@@ -71,6 +78,9 @@ public class SeckillServiceImpl implements SeckillService {
             }
             stock.put(productId, stockNum);
         }
+
+        //解锁
+        redisLock.unlock(productId, String.valueOf(time));
     }
 
     @Override
